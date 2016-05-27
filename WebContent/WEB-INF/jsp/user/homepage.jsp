@@ -10,15 +10,15 @@
 	<title>Update book details</title>
 </head>
 <body>
-	<form:form modelAttribute="book">
-			 <form:hidden path="id"/>
-	 ISBN:   <form:input path="isbn"/>  		 <form:errors path="isbn"/>  		   <br/>
-	 Title:  <form:input path="title"/>  		 <form:errors path="title"/>  		   <br/>
-	 Date:   <form:input path="publishDate"/>    <form:errors path="publishDate"/>    <br/>
+	<form:form modelAttribute="user">
+			 <form:hidden path="oid"/>
+	 Username:   <form:input path="username"/>  		 <form:errors path="username"/>  		   <br/>
+	 <%-- Usage:  <form:input path="title"/>  		 <form:errors path="title"/>  		   <br/>
+	 Date:   <form:input path="publishDate"/>    <form:errors path="publishDate"/>    <br/> --%>
 	 
 	 <input type="submit" name="cancel" value="Back"/>
 	 
-	 <c:if test="${!empty book.id}">
+	 <c:if test="${!empty user.oid}">
 	 	<input type="submit" name="remove" value="Remove"/>
 	 </c:if>
 	 

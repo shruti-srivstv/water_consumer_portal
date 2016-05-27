@@ -6,16 +6,16 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Ex1 - Spring MVC w/ JPA</title>
+	<title>Water Consumer Portal</title>
 </head>
 <body>
 	<table border="1">
-		<tr> <th>ISBN</th> <th>Title</th> <th>Publish Date</th></tr>
-		<c:forEach var="book" items="${bookList}">
+		<tr> <th>OID</th> <th>Username</th> <th>Password</th></tr>
+		<c:forEach var="user" items="${userList}">
 			<tr>
-				<td><a href="<c:url value="/books/${book.isbn}"/>">${book.isbn}</a></td>
-				<td>${book.title}</td>
-				<td><fmt:formatDate type="date" value="${book.publishDate}"/></td>
+				<td><a href="<c:url value="/books/${user.oid}"/>">${user.oid}</a></td>
+				<td><a href="<c:url value="/books/${user.username}"/>">${user.username}</a></td>
+				<td><a href="<c:url value="/books/${user.password}"/>">${user.password}</a></td>
 			</tr>
 		</c:forEach>
 	</table>

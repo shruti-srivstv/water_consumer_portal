@@ -13,7 +13,7 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost:3306/spring-mvc-jpa-ex1"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/awt"/>
 		<property name="username" value="root"/>
 		<property name="password" value=""/>
 	</bean>
@@ -26,8 +26,8 @@
 	
 	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
-		<property name="packagesToScan" value="it.polimi.awt.springmvc.domain"/>
-		<property name="persistenceUnitName" value="BookUnit"/>
+		<property name="packagesToScan" value="it.polimi.awt.waterconsumer.domain"/>
+		<property name="persistenceUnitName" value="UserUnit"/>
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
 	</bean>
 	

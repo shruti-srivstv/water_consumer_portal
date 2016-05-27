@@ -10,11 +10,11 @@
 				        http://www.springframework.org/schema/mvc
 				        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<context:component-scan base-package="it.polimi.awt.springmvc.web"/>
+	<context:component-scan base-package="it.polimi.awt.waterconsumer.web"/>
 	
 	<mvc:annotation-driven/>
 	
-	<mvc:view-controller path="/" view-name="redirect:/books"/>
+	<mvc:view-controller path="/" view-name="redirect:/users"/>
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
