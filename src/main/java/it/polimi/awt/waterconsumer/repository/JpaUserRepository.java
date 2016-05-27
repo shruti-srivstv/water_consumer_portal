@@ -19,8 +19,8 @@ public class JpaUserRepository implements UserRepository {
 		return query.getResultList();
 	}
 	
-	public User findUserById(Integer oid) {
-		return em.find(User.class, oid);
+	public User findUserById(Integer id) {
+		return em.find(User.class, id);
 	}
 	
 //	@Override

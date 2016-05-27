@@ -32,9 +32,9 @@ public class UserController {
 		return "user/list";
 	}
 	
-	@RequestMapping(value="{username}", method=RequestMethod.GET)
-	public String getUserDetails(@PathVariable String username, Model model) {
-		User user = userService.findUserByUsername(username);
+	@RequestMapping(value="{id}", method=RequestMethod.GET)
+	public String getUserDetails(@PathVariable Integer id, Model model) {
+		User user = userService.findUserById(id);
 		model.addAttribute(user);
 		return "user/homepage";
 	}

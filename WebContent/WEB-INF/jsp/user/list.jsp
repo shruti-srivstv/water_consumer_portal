@@ -13,12 +13,12 @@
 		<tr> <th>OID</th> <th>Username</th> <th>Password</th></tr>
 		<c:forEach var="user" items="${userList}">
 			<tr>
-				<td><a href="<c:url value="/books/${user.oid}"/>">${user.oid}</a></td>
-				<td><a href="<c:url value="/books/${user.username}"/>">${user.username}</a></td>
-				<td><a href="<c:url value="/books/${user.password}"/>">${user.password}</a></td>
+				<td><a href="<c:url value="/users/${user.oid}"/>">${user.oid}</a></td>
+				<td>${user.username}</td>
+				<td>${user.password}</td>
 			</tr>
 		</c:forEach>
 	</table>
-	<a href="<c:url value="books/create"/>">Create new</a>
+	<a href="<c:url value="users/create"/>">Create new</a>
 </body>
 </html>

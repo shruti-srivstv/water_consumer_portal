@@ -57,8 +57,9 @@ public class UserServiceImpl implements UserService {
 //		Book book = bookRepository.findBookById(id);
 //		bookRepository.removeBook(book);
 //	}
-
+	
 	public User findUserById(Integer id) {
 		return userRepository.findUserById(id);
 	}
-}
+
+	}

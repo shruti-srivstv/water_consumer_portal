@@ -7,11 +7,11 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Update book details</title>
+	<title>Your Homepage</title>
 </head>
 <body>
 	<form:form modelAttribute="user">
-			 <form:hidden path="oid"/>
+			 <form:hidden path="username"/>
 	 Username:   <form:input path="username"/>  		 <form:errors path="username"/>  		   <br/>
 	 <%-- Usage:  <form:input path="title"/>  		 <form:errors path="title"/>  		   <br/>
 	 Date:   <form:input path="publishDate"/>    <form:errors path="publishDate"/>    <br/> --%>
