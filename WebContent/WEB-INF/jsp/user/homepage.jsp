@@ -10,6 +10,9 @@
 	<title>Your Homepage</title>
 </head>
 <body>
+	<h3> Your data goes here </h3>
+	<br/>
+	<br/>
 	<form:form modelAttribute="user">
 			 <form:hidden path="username"/>
 	 Username:   <form:input path="username"/>  		 <form:errors path="username"/>  		   <br/>
