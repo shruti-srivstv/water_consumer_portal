@@ -15,12 +15,12 @@ public class Neutral_User{
 	private Date registration_date;
 	private Integer household_id;
 	
-//	@OneToOne(mappedBy="neutral_user")
-//	List<User> users;
+	@OneToOne(mappedBy="neutral_user")
+	List<User> users;
 	
-//	public Neutral_User() {
-//		this.users = new ArrayList<User>();
-//	}
+	public Neutral_User() {
+		this.users = new ArrayList<User>();
+	}
 	
 	public Integer getUserOid() {
 		return user_oid;

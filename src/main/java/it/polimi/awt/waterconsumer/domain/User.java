@@ -20,8 +20,8 @@ public class User {
 	private String zipcode;
 	
 	
-//	@OneToOne
-//	Neutral_User neutral_user;
+	@OneToOne
+	Neutral_User neutral_user;
 	
 	public Integer getOid() {
 		return oid;
