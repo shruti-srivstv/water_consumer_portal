@@ -11,6 +11,13 @@
 		<commons-dcbp.version>2.1.1</commons-dcbp.version>
 		<mysql.version>5.1.38</mysql.version>
 	</properties>
+	<repositories>
+	  <repository>
+	    <id>spring-snapshot</id>
+	    <name>Spring Snapshot Repository</name>
+	    <url>https://repo.spring.io/snapshot</url>
+	  </repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -71,6 +78,18 @@
     		<groupId>org.jboss.logging</groupId>
     		<artifactId>jboss-logging</artifactId>
     		<version>3.3.0.Final</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>3.2.10.CI-SNAPSHOT</version>
+		</dependency>
+		  
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>3.2.10.CI-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>

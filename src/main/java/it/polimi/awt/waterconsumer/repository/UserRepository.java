@@ -7,7 +7,8 @@ import it.polimi.awt.waterconsumer.domain.*;
 public interface UserRepository {
 	public List<User> findAll();
 	public User findUserById(Integer id);
-	
+
+	public User findUserbyUsername(String username);
 //	public User findByIsbn(String isbn);
 //	public void persistBook(Book book);
 //	public void saveOrUpdateBook(Book book);
