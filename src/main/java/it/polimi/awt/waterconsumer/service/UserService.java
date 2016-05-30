@@ -7,6 +7,7 @@ import java.util.List;
 public interface UserService {	
 	public List<User> findAll();
 	public User findUserById(Integer id);
+	public User findUserbyUsername(String username);
 //	public void saveOrUpdateBook(Book book) throws DuplicatedIsbnException;
 //	public void removeBook(Integer id);
 }

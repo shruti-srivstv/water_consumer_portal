@@ -18,13 +18,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/users")
+//@RequestMapping("/users")
 public class UserController {
 	
 	@Autowired
 	private UserService userService;
-
-	@RequestMapping(method=RequestMethod.GET)
+	
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String getLoginPage(Model model){
+		return "login";
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
+	public String showHomepage(Model model, String username){
+		User user = userService.findUserbyUsername(username);
+		model.addAttribute(user);
+		return "user/homepage";
+	}
+	
+	@RequestMapping(value="/users", method=RequestMethod.GET)
 	public String getAllUsers(Model model) {
 		List<User> users = userService.findAll();
 		model.addAttribute(users);
@@ -32,7 +44,7 @@ public class UserController {
 		return "user/list";
 	}
 	
-	@RequestMapping(value="{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/users/{id}", method=RequestMethod.GET)
 	public String getUserDetails(@PathVariable Integer id, Model model) {
 		User user = userService.findUserById(id);
 		model.addAttribute(user);

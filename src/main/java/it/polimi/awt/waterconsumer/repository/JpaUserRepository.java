@@ -23,6 +23,18 @@ public class JpaUserRepository implements UserRepository {
 		return em.find(User.class, id);
 	}
 	
+	public User findUserbyUsername(String username){
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class);
+		query.setParameter("username", username);
+		
+		List<User> resultList = query.getResultList();
+		
+		User user = null;
+		if (!resultList.isEmpty()){
+			user = resultList.get(0);
+		}
+		return user;
+	}
 //	@Override
 //	public User findBookByIsbn(String isbn) {
 //		TypedQuery<Book> query = em.createQuery("SELECT b FROM User b WHERE b.isbn = :isbn", Book.class);
