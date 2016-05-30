@@ -15,13 +15,14 @@ public class JpaUserRepository implements UserRepository {
 	private EntityManager em;
 	
 	public List<User> findAll() {
-		TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);		
 		return query.getResultList();
 	}
 	
+	
 	public User findUserById(Integer id) {
 		return em.find(User.class, id);
-	}
+	}	
 	
 //	@Override
 //	public User findBookByIsbn(String isbn) {

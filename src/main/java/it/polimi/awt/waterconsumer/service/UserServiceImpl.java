@@ -1,8 +1,8 @@
 package it.polimi.awt.waterconsumer.service;
 
 import it.polimi.awt.waterconsumer.domain.User;
-import it.polimi.awt.waterconsumer.exception.DuplicatedUsernameException;
 import it.polimi.awt.waterconsumer.repository.UserRepository;
+
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepository;
 	
+	
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
+	
 	
 //	@Override
 //	public Book findBookByIsbn(String isbn) {
