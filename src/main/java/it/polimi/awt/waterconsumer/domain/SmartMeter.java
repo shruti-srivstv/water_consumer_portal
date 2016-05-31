@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Building{
+public class SmartMeter{
 	@Id
 	private Integer oid;
 	
@@ -16,14 +16,14 @@ public class Building{
 		this.oid = oid;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getSmartMeterId() {
+		return smartMeterId;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setSmartMeterId(String smartMeterId) {
+		this.smartMeterId = smartMeterId;
 	}
 
-	private String address;
+	private String smartMeterId;
 	
 }

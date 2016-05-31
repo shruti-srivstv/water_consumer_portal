@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>Custom Spring Security Login</title>
+  <title>Water Login</title>
 </head>
 
 <body>

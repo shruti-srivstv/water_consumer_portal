@@ -10,5 +10,10 @@
 </head>
 <body>
 	Welcome to Water Consumer Portal	
+	<br>
+	<span>Name : ${user.username}</span><br>
+	<span>User ID: ${user.neutralUser.userOid}</span><br>
+	<span>Household ID: ${user.neutralUser.household.oid}</span><br>
+	<span>Household ID: ${user.neutralUser.household.oid}</span><br>
 </body>
 </html>

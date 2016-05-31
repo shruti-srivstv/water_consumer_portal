@@ -14,7 +14,7 @@
 	
 	<mvc:annotation-driven/>
 	
-	<mvc:view-controller path="/" view-name="redirect:/users"/>
+	<!-- <mvc:view-controller path="/" view-name="redirect:/users"/> -->
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -25,5 +25,7 @@
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
         <property name="basename" value="classpath:validationMessages" />
     </bean>
+    
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 	
 </beans>
