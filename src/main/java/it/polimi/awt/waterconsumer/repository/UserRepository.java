@@ -2,7 +2,7 @@ package it.polimi.awt.waterconsumer.repository;
 
 import java.util.List;
 
-import it.polimi.awt.waterconsumer.domain.User;
+import it.polimi.awt.waterconsumer.domain.*;
 
 public interface UserRepository {
 	public List<User> findAll();

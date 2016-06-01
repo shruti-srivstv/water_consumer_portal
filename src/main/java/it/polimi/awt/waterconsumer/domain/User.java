@@ -1,13 +1,10 @@
 package it.polimi.awt.waterconsumer.domain;
 
-import java.util.Date;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 //import javax.enterprise.context.RequestScoped;
-
 
 @Entity
 //@Scope("session")
@@ -22,10 +19,11 @@ public class User {
 	@NotBlank(message = "{NotBlank.User.password}")
 	private String password;
 	
-	//@NotNull(message = "{NotNull.book.publishDate")
-	//@DateTimeFormat(pattern = "MM/dd/yyyy")
-	//@Past(message = "{Past.book.publishDate")
-	//private Date publishDate;
+	private String zipcode;
+	
+	
+	@OneToOne
+	Neutral_User neutral_user;
 	
 	public Integer getOid() {
 		return oid;
@@ -45,5 +43,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getZipcode() {
+		return zipcode;
+	}
+	
+//	public Neutral_User getNeutral() {
+//		return neutral_user;
+//	}
 	
 }

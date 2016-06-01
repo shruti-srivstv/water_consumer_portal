@@ -1,8 +1,8 @@
 package it.polimi.awt.waterconsumer.service;
 
 import it.polimi.awt.waterconsumer.domain.User;
-import it.polimi.awt.waterconsumer.exception.DuplicatedUsernameException;
 import it.polimi.awt.waterconsumer.repository.UserRepository;
+
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepository;
+	
 	
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository) {

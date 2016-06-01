@@ -1,1 +1,1 @@
-This is a water consumer portal for consumers to visualize their water consumption.
+This is a water consumer portal for consumers to visualize their water consumption. This is a Spring MVC application demo.
