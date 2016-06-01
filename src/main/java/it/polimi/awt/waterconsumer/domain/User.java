@@ -21,9 +21,9 @@ public class User {
 	
 	private String zipcode;
 	
-	
 	@OneToOne
-	Neutral_User neutral_user;
+	@JoinColumn(name="oid", insertable=false, updatable=false)
+	private	NeutralUser neutralUser;
 	
 	public Integer getOid() {
 		return oid;
@@ -48,8 +48,16 @@ public class User {
 		return zipcode;
 	}
 	
-//	public Neutral_User getNeutral() {
-//		return neutral_user;
-//	}
+	@Override
+    public String toString() {
+        return "LoginModel{" + "username=" + username + ", password=" + password + '}';
+    }
+	
+	public NeutralUser getNeutralUser() {
+		return neutralUser;
+	}
+	public void setNeutralUser(NeutralUser neutralUser) {
+		this.neutralUser = neutralUser;
+	}
 	
 }

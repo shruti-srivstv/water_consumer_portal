@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="water_consumer_portal">
+		<class>it.polimi.awt.waterconsumer.entity.Building</class>
+		<class>it.polimi.awt.waterconsumer.entity.District</class>
+		<class>it.polimi.awt.waterconsumer.entity.Household</class>
+		<class>it.polimi.awt.waterconsumer.entity.MeterReading</class>
+		<class>it.polimi.awt.waterconsumer.entity.NeutralUser</class>
+		<class>it.polimi.awt.waterconsumer.entity.SmartMeter</class>
+		<class>it.polimi.awt.waterconsumer.entity.User</class>
+		<class>it.polimi.awt.waterconsumer.entity.ComplexDeviceInstance</class>
+		<class>it.polimi.awt.waterconsumer.entity.ConsumerSegment</class>
+		<class>it.polimi.awt.waterconsumer.entity.DeviceConsumption</class>
+		<class>it.polimi.awt.waterconsumer.entity.DeviceType</class>
+		<class>it.polimi.awt.waterconsumer.entity.Module</class>
+		<class>it.polimi.awt.waterconsumer.entity.Neutraluser</class>
+		<class>it.polimi.awt.waterconsumer.entity.SimpleDeviceInstance</class>
+	</persistence-unit>
+</persistence>

@@ -9,16 +9,8 @@
 	<title>Water Consumer Portal</title>
 </head>
 <body>
-	<table border="1">
-		<tr> <th>OID</th> <th>Username</th> <th>Password</th><th>Household Id</th></tr>
-		<c:forEach var="user" items="${userList}">
-			<tr>
-				<td><a href="<c:url value="/users/${user.oid}"/>">${user.oid}</a></td>
-				<td>${user.username}</td>
-				<td>${user.password}</td>				
-			</tr>
-		</c:forEach>
-	</table>
-	<a href="<c:url value="users/create"/>">Create new</a>
+	Welcome to Water Consumer Portal	
+	<br>
+	
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import it.polimi.awt.waterconsumer.domain.User;
+import it.polimi.awt.waterconsumer.domain.*;
 import it.polimi.awt.waterconsumer.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +21,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Scope("session")
 //@RequestMapping("/users")
 public class UserController {
-	
-	@Autowired
+			
 	private UserService userService;
 	
+	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-
-
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String getLoginPage(Model model, HttpServletRequest request){
-		Integer userid = (Integer) request.getSession().getAttribute("userid");
-		if (userid!=null){
-			return "redirect:/portal";
-		}
-		else{
-			return "login";
-		}
+		
+	@RequestMapping(value="/registration", method=RequestMethod.GET)
+	public String getRegistrationPage(Model model){
+		return "registration";
 	}
+	
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public String showRegistrationResult(Model model, Integer householdId){
+		User user = userService.findUserbyHouseholdId(householdId);
+//		System.out.print("++++++++++++++++++++++" + user.getNeutralUser());
+		return "user/registrationHome";
+	}	
+
+//	@RequestMapping(value="/login", method=RequestMethod.GET)
+//	public String getLoginPage(Model model, HttpServletRequest request){
+//		Integer userid = (Integer) request.getSession().getAttribute("userid");
+//		if (userid!=null){
+//			return "redirect:/portal";
+//		}
+//		else{
+//			return "login";
+//		}
+//	}
 	
 	@RequestMapping(value="/403", method=RequestMethod.GET)
 	public String return403Page(Model model){
@@ -51,13 +63,14 @@ public class UserController {
 		if (userid!=null){
 			User user = userService.findUserById(userid);
 			model.addAttribute(user);
-			return "user/homepage";
+			return "user/home";
 		}
 		else {
 			return "redirect:/login";
 		}
 	}
 	
+
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String validateLogin(Model model, String username, String password, HttpServletRequest request){
 		Integer userid = userService.findUserforLogin(username, password);
@@ -66,6 +79,7 @@ public class UserController {
 			return "redirect:/portal";
 		}
 		else{
+			model.addAttribute("message", "Invalid Username/Password !");
 			return "redirect:/403";
 		}
 	}
@@ -80,8 +94,8 @@ public class UserController {
 	
 	@RequestMapping(value="/users/{id}", method=RequestMethod.GET)
 	public String getUserDetails(@PathVariable Integer id, Model model) {
-		User user = userService.findUserById(id);
+/*		User user = userService.findUserById(id);
 		model.addAttribute(user);
-		return "user/homepage";
+*/		return "user/home";
 	}
 }

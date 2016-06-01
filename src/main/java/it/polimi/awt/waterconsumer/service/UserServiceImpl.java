@@ -3,7 +3,6 @@ package it.polimi.awt.waterconsumer.service;
 import it.polimi.awt.waterconsumer.domain.User;
 import it.polimi.awt.waterconsumer.repository.UserRepository;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
 	private UserRepository userRepository;
-	
-	
+
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	
+
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
@@ -29,42 +27,22 @@ public class UserServiceImpl implements UserService {
 	public Integer findUserforLogin(String username, String password){
 		return userRepository.findUserforLogin(username, password);
 	}
-	
-//	@Override
-//	public Book findBookByIsbn(String isbn) {
-//		return bookRepository.findBookByIsbn(isbn);
-//	}
-//	
-//	@Override
-//	public void saveOrUpdateBook(Book book) throws DuplicatedIsbnException {
-//		Book existentBook = this.findBookByIsbn(book.getIsbn());
-//				
-//		if (existentBook == null){
-//			if (book.getId() == null){
-//				bookRepository.persistBook(book);
-//			}
-//			else{
-//				bookRepository.saveOrUpdateBook(book);
-//			}
-//		}
-//		else{
-//			if (book.getId() == existentBook.getId()){
-//				bookRepository.saveOrUpdateBook(book);
-//			}
-//			else{
-//				throw new DuplicatedIsbnException();
-//			}
-//		}
-//	}
-//	
-//	@Override
-//	public void removeBook(Integer id) {
-//		Book book = bookRepository.findBookById(id);
-//		bookRepository.removeBook(book);
-//	}
-	
+
 	public User findUserById(Integer id) {
 		return userRepository.findUserById(id);
 	}
-
+	
+	public User findUserbyHouseholdId(Integer id){
+		return userRepository.findUserbyHouseholdId(id);
 	}
+	
+	public User findUserbyBuildingId(Integer id){
+		return userRepository.findUserbyBuildingId(id);
+	}
+	public User findUserbySmartMeterId(Integer id){
+		return userRepository.findUserbySmartMeterId(id);
+	}
+	public User findUserbyZipcode(String id){
+		return userRepository.findUserbyZipcode(id);
+	}
+}

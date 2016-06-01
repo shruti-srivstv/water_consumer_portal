@@ -12,4 +12,11 @@ public interface UserRepository {
 //	public void persistBook(Book book);
 //	public void saveOrUpdateBook(Book book);
 //	public void removeBook(Book book);
+//	public User findUserbyUsername(String username, String password);	
+	
+	public User findUserbyHouseholdId(Integer id);
+	public User findUserbyBuildingId(Integer id);
+	public User findUserbySmartMeterId(Integer id);
+	public User findUserbyZipcode(String id);
+	
 }

@@ -1,6 +1,6 @@
 package it.polimi.awt.waterconsumer.service;
 
-import it.polimi.awt.waterconsumer.domain.User;
+import it.polimi.awt.waterconsumer.domain.*;
 import java.util.List;
 
 public interface UserService {	
@@ -8,6 +8,9 @@ public interface UserService {
 	public User findUserById(Integer id);
 	public Integer findUserforLogin(String username, String password);
 //	public void saveOrUpdateBook(Book book) throws DuplicatedIsbnException;
-//	public void removeBook(Integer id);
-//>>>>>>> origin
+//	public void removeBook(Integer id);	
+	public User findUserbyHouseholdId(Integer id);
+	public User findUserbyBuildingId(Integer id);
+	public User findUserbySmartMeterId(Integer id);
+	public User findUserbyZipcode(String id);
 }
