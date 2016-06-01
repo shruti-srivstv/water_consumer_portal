@@ -2,29 +2,41 @@ package it.polimi.awt.waterconsumer.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Household{
 	@Id
 	private Integer oid;	
+	
+	@ManyToOne
+	private Building building;
+	
+	@ManyToOne
+	private SmartMeter smart_meter;
+
 	public Integer getOid() {
 		return oid;
 	}
+
 	public void setOid(Integer oid) {
 		this.oid = oid;
 	}
-	
+
 	public Building getBuilding() {
 		return building;
 	}
-	public void setBuilding_oid(Building building) {
+
+	public void setBuilding(Building building) {
 		this.building = building;
 	}
-	
-	@OneToOne
-	@JoinColumn(name="building_oid", insertable=false, updatable=false)
-	private Building building;
+
+	public SmartMeter getSmartMeter() {
+		return smart_meter;
+	}
+
+	public void setSmartMeter(SmartMeter smartMeter) {
+		this.smart_meter = smartMeter;
+	}
 	
 }

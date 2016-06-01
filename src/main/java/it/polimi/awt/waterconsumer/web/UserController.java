@@ -21,16 +21,19 @@ public class UserController {
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-	
-	@RequestMapping(value="/idValidate", method=RequestMethod.GET)
-	public String getRegisterIdPage(Model model){
-		return "idValidate";
-	}
-	
+		
 	@RequestMapping(value="/registration", method=RequestMethod.GET)
-	public String getRegisterPage(Model model){
+	public String getRegistrationPage(Model model){
 		return "registration";
 	}
+	
+	@RequestMapping(value="/register", method=RequestMethod.POST)
+	public String showRegistrationResult(Model model, Integer householdId){
+		User user = userService.findUserbyHouseholdId(householdId);
+		
+		System.out.print("++++++++++++++++++++++" + user.getNeutralUser());
+		return "user/registrationHome";
+	}	
 
 	@RequestMapping(value="/login", method=RequestMethod.GET)
 	public String getLoginPage(Model model){

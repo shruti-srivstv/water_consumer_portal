@@ -53,17 +53,49 @@ public class JpaUserRepository implements UserRepository {
 		return neutralUser;
 	}
 	
-	public NeutralUser findNeutralUserbyHouseholdId(Integer id){
-		TypedQuery<NeutralUser> query = em.createQuery("SELECT n FROM NeutralUser n WHERE n.userOid = :oid", NeutralUser.class);
-		query.setParameter("oid", id);
-		List<NeutralUser> resultList = query.getResultList();
+	public User findUserbyHouseholdId(Integer id){
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.neutralUser.household.oid = :householdId", User.class);
+		query.setParameter("householdId", id);
+		List<User> resultList = query.getResultList();
 		
-		NeutralUser neutralUser = null;
+		User user = null;
 		if (!resultList.isEmpty()){
-			neutralUser = resultList.get(0);
+			user = resultList.get(0);
 		}
-		return neutralUser;
+		return user;
 	}
 	
-	
+	public User findUserbyBuildingId(Integer id){
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.neutralUser.household.oid = :householdId", User.class);
+		query.setParameter("householdId", id);
+		List<User> resultList = query.getResultList();
+		
+		User user = null;
+		if (!resultList.isEmpty()){
+			user = resultList.get(0);
+		}
+		return user;
+	}
+	public User findUserbySmartMeterId(Integer id){
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.neutralUser.household.oid = :householdId", User.class);
+		query.setParameter("householdId", id);
+		List<User> resultList = query.getResultList();
+		
+		User user = null;
+		if (!resultList.isEmpty()){
+			user = resultList.get(0);
+		}
+		return user;
+	}
+	public User findUserbyZipcode(String id){
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.neutralUser.household.oid = :householdId", User.class);
+		query.setParameter("householdId", id);
+		List<User> resultList = query.getResultList();
+		
+		User user = null;
+		if (!resultList.isEmpty()){
+			user = resultList.get(0);
+		}
+		return user;
+	}
 }

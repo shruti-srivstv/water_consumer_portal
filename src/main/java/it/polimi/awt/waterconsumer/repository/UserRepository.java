@@ -8,7 +8,10 @@ public interface UserRepository {
 	public List<User> findAll();
 	public User findUserById(Integer id);
 	public User findUserbyUsername(String username, String password);	
-	public NeutralUser findNeutralUserbyId(Integer id);	
-	public NeutralUser findNeutralUserbyHouseholdId(Integer id);
+	
+	public User findUserbyHouseholdId(Integer id);
+	public User findUserbyBuildingId(Integer id);
+	public User findUserbySmartMeterId(Integer id);
+	public User findUserbyZipcode(String id);
 	
 }

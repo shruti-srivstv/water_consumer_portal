@@ -1,6 +1,5 @@
 package it.polimi.awt.waterconsumer.service;
 
-import it.polimi.awt.waterconsumer.domain.NeutralUser;
 import it.polimi.awt.waterconsumer.domain.User;
 import it.polimi.awt.waterconsumer.repository.UserRepository;
 
@@ -32,12 +31,18 @@ public class UserServiceImpl implements UserService {
 	public User findUserById(Integer id) {
 		return userRepository.findUserById(id);
 	}
-
-	public NeutralUser findNeutralUserbyId(Integer id) {
-		return userRepository.findNeutralUserbyId(id);
+	
+	public User findUserbyHouseholdId(Integer id){
+		return userRepository.findUserbyHouseholdId(id);
 	}
 	
-	public NeutralUser findNeutralUserbyHouseholdId(Integer id){
-		return userRepository.findNeutralUserbyHouseholdId(id);
+	public User findUserbyBuildingId(Integer id){
+		return userRepository.findUserbyBuildingId(id);
+	}
+	public User findUserbySmartMeterId(Integer id){
+		return userRepository.findUserbySmartMeterId(id);
+	}
+	public User findUserbyZipcode(String id){
+		return userRepository.findUserbyZipcode(id);
 	}
 }
