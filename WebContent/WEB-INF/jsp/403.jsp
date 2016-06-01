@@ -1,4 +1,3 @@
-<!-- Not used unless you declare a <form-login login-page="/login.jsp"/> element -->
 
 <html>
 <head>
@@ -6,7 +5,11 @@
 </head>
 
 <body>
-  <h1>Custom Spring Security Login</h1>
+  <h1>Error</h1>
+
+
+<h3>Your login credentials were incorrect.</h3>
+
 
 <form action="login" method="POST">
   <table>
