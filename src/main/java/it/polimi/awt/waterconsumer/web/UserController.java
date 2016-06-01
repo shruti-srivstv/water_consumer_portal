@@ -41,16 +41,16 @@ public class UserController {
 		return "user/registrationHome";
 	}	
 
-//	@RequestMapping(value="/login", method=RequestMethod.GET)
-//	public String getLoginPage(Model model, HttpServletRequest request){
-//		Integer userid = (Integer) request.getSession().getAttribute("userid");
-//		if (userid!=null){
-//			return "redirect:/portal";
-//		}
-//		else{
-//			return "login";
-//		}
-//	}
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String getLoginPage(Model model, HttpServletRequest request){
+		Integer userid = (Integer) request.getSession().getAttribute("userid");
+		if (userid!=null){
+			return "redirect:/portal";
+		}
+		else{
+			return "login";
+		}
+	}
 	
 	@RequestMapping(value="/403", method=RequestMethod.GET)
 	public String return403Page(Model model){
