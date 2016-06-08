@@ -1,8 +1,10 @@
 package it.polimi.awt.waterconsumer.service;
 
+import it.polimi.awt.waterconsumer.domain.MeterReading;
 import it.polimi.awt.waterconsumer.domain.User;
 import it.polimi.awt.waterconsumer.repository.UserRepository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,9 @@ public class UserServiceImpl implements UserService {
 	}
 	public User findUserbyZipcode(String id){
 		return userRepository.findUserbyZipcode(id);
+	}
+	
+	public List<MeterReading> selectMeterReadingbyDate(Integer smartMeterId, Date startDate, Date endDate){
+		return userRepository.selectMeterReadingbyDate(smartMeterId, startDate, endDate);
 	}
 }

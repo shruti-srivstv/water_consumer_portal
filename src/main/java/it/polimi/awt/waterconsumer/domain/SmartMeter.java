@@ -24,7 +24,8 @@ public class SmartMeter{
 	@JoinColumn(name = "building_oid")
 	private Building building;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "smart_meter")
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "smart_meter_oid")
 	private List<MeterReading> meterReadings;
 
 

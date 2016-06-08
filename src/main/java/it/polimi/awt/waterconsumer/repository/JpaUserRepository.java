@@ -2,7 +2,9 @@ package it.polimi.awt.waterconsumer.repository;
 
 import it.polimi.awt.waterconsumer.domain.NeutralUser;
 import it.polimi.awt.waterconsumer.domain.User;
+import it.polimi.awt.waterconsumer.domain.MeterReading;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -98,4 +100,16 @@ public class JpaUserRepository implements UserRepository {
 		}
 		return user;
 	}
+	
+	public List<MeterReading> selectMeterReadingbyDate(Integer smartMeterId, Date startDate, Date endDate){
+		//CREATE INDEX meterReadingInd ON meter_reading(smart_meter_oid, reading_date_time) 
+		TypedQuery<MeterReading> query = em.createQuery("SELECT mrs FROM SmartMeter sm JOIN sm.meterReadings mrs WHERE sm.oid = :smartID AND mrs.readingDateTime BETWEEN :startDate and :endDate"
+				, MeterReading.class);
+		query.setParameter("startDate", startDate);
+		query.setParameter("endDate", endDate);
+		query.setParameter("smartID", smartMeterId);
+	
+		return query.getResultList();
+	}
+
 }
