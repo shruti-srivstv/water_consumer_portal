@@ -9,12 +9,43 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%-- 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/niceforms.js"></script>
+ --%>	
+	<script src= "<c:url value ="http://code.highcharts.com/highcharts.js" />" ></script>
 	<title>Your Homepage</title>
 </head>
 <body>
 	<h3> Your water consumption goes here </h3>
 	<br/>
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="/js/themes/gray.js"></script>
+	<div id="container" style="width:100%; height:400px;"></div>
+	<script>
+		$(function () { 
+		    $('#container').highcharts({
+		        chart: {
+		            type: 'bar'
+		        },
+		        title: {
+		            text: 'Fruit Consumption'
+		        },
+		        xAxis: {
+		            categories: ['Apples', 'Bananas', 'Oranges']
+		        },
+		        yAxis: {
+		            title: {
+		                text: 'Fruit eaten'
+		            }
+		        },
+		        series: [{
+		            name: 'Jane',
+		            data: [1, 0, 4]
+		        }, {
+		            name: 'John',
+		            data: [5, 7, 3]
+		        }]
+		    });
+		});
+	</script>
 <script type="text/javascript">
     // Load the Visualization API and the piechart package.
     google.load('visualization', '1.0', {
@@ -30,25 +61,9 @@
     function drawChart() {
  
         // Create the data table.    
-        var data = google.visualization.arrayToDataTable([
-                                                              ['User', 'Consumption(relevant metric)'],
-                                                              <c:forEach items="${userconsumption}" var="entry">
-                                                                  [ '${entry.key}', ${entry.value} ],
-                                                              </c:forEach>
-                                                        ]);
-        // Set chart options
-        var options = {
-            'title' : 'Area-wise Top Seven Countries in the World',
-            is3D : true,
-            pieSliceText: 'label',
-            tooltip :  {showColorCode: true},
-            'width' : 900,
-            'height' : 500
-        };
+ 
  
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
     }
 </script>
 	<br/>
