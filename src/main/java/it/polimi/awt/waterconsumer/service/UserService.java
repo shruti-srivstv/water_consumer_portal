@@ -1,6 +1,8 @@
 package it.polimi.awt.waterconsumer.service;
 
 import it.polimi.awt.waterconsumer.domain.*;
+
+import java.util.Date;
 import java.util.List;
 
 public interface UserService {	
@@ -13,4 +15,6 @@ public interface UserService {
 	public User findUserbyBuildingId(Integer id);
 	public User findUserbySmartMeterId(Integer id);
 	public User findUserbyZipcode(String id);
+	
+	public List<MeterReading> selectMeterReadingbyDate(Integer smartMeterId, Date startDate, Date endDate);
 }

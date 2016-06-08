@@ -5,8 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +15,7 @@ public class NeutralUser{
 	@Column(name="user_oid")
 	private int userOid;
 	
-	@OneToOne
-	@JoinColumn(name="household_oid", insertable=false, updatable=false)
+	@ManyToOne
 	private Household household;
 	
 	@Column(name="registration_date")

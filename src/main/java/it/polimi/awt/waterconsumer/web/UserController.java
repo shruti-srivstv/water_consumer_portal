@@ -1,6 +1,13 @@
 package it.polimi.awt.waterconsumer.web;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -8,6 +15,10 @@ import it.polimi.awt.waterconsumer.domain.User;
 import it.polimi.awt.waterconsumer.domain.*;
 import it.polimi.awt.waterconsumer.service.UserService;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpRequest;
@@ -16,12 +27,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @Scope("session")
 //@RequestMapping("/users")
 public class UserController {
-			
+		
 	private UserService userService;
 	
 	@Autowired
@@ -83,7 +96,32 @@ public class UserController {
 			return "redirect:/403";
 		}
 	}
-	
+		
+	@RequestMapping(value="/user/home", method=RequestMethod.GET)
+	public String showMeterReading(HttpSession session, Model model, Date startDate, Date endDate){
+		User sessionUser = (User) session.getAttribute("user");
+		List<MeterReading> meterReading = userService.selectMeterReadingbyDate(sessionUser.getNeutralUser().getHousehold().getSmartMeter().getOid(), startDate, endDate);
+		
+		model.addAttribute("meterReading", meterReading);
+		
+		return "user/home";
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/getConsumption", method=RequestMethod.GET)
+	public Map<String,Object> showGetConsumption(HttpSession session, @RequestParam(name="from",required=true) String startDate, @RequestParam(name="to",required=true)String endDate) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");		
+		
+		User sessionUser = (User) session.getAttribute("user");
+		List<MeterReading> meterReading = userService.selectMeterReadingbyDate(sessionUser.getNeutralUser().getHousehold().getSmartMeter().getOid(), sdf.parse(startDate), sdf.parse(endDate));
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		
+		map.put("name", "amin");
+		map.put("meters", meterReading);
+		return map;
+	}
+
 	@RequestMapping(value="/users", method=RequestMethod.GET)
 	public String getAllUsers(Model model) {
 		List<User> users = userService.findAll();

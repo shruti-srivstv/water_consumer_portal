@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -29,9 +30,6 @@ public class MeterReading{
 	@Column(name="total_consumption_adjusted")
 	private BigDecimal totalConsumptionAdjusted;
 	
-	@ManyToOne
-	private SmartMeter smart_meter;
-
 	public int getOid() {
 		return oid;
 	}
@@ -72,11 +70,4 @@ public class MeterReading{
 		this.totalConsumptionAdjusted = totalConsumptionAdjusted;
 	}
 
-	public SmartMeter getSmartMeter() {
-		return smart_meter;
-	}
-
-	public void setSmartMeter(SmartMeter smartMeter) {
-		this.smart_meter = smartMeter;
-	}
 }
