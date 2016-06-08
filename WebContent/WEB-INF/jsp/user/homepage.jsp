@@ -11,13 +11,17 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%-- 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/niceforms.js"></script>
  --%>	
-	<script src= "<c:url value ="http://code.highcharts.com/highcharts.js" />" ></script>
+	<script type="text/javascript" src="<c:url value="/resources/js/jquery-1.10.2.min.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/highcharts.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/exporting.js" />"></script>
+    <script type="text/javascript" src="<c:url value="/resources/js/custom-chart.js" />"></script>
 	<title>Your Homepage</title>
 </head>
 <body>
 	<h3> Your water consumption goes here </h3>
 	<br/>
 	<script type="text/javascript" src="/js/themes/gray.js"></script>
+	<%-- var contextPath = '<c:out value="${pageContext.request.contextPath}"/>'; --%>
 	<div id="container" style="width:100%; height:400px;"></div>
 	<script>
 		$(function () { 
@@ -46,26 +50,6 @@
 		    });
 		});
 	</script>
-<script type="text/javascript">
-    // Load the Visualization API and the piechart package.
-    google.load('visualization', '1.0', {
-        'packages' : [ 'corechart' ]
-    });
- 
-    // Set a callback to run when the Google Visualization API is loaded.
-    google.setOnLoadCallback(drawChart);
- 
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-    function drawChart() {
- 
-        // Create the data table.    
- 
- 
-        // Instantiate and draw our chart, passing in some options.
-    }
-</script>
 	<br/>
 	<br/>
 	<form:form modelAttribute="user">
