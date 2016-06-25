@@ -1,0 +1,8 @@
+SELECT  smart_meter_oid, cast(reading_date_time As Date) as time2 , (
+          SELECT   TOP 1 total_consumption_adjusted
+          FROM     meter_reading T2
+          WHERE    cast(T2.reading_date_time  As Date) = cast(T1.reading_date_time  As Date)
+          AND      T2.smart_meter_oid = T1.smart_meter_oid
+          ORDER BY reading_date_time DESC) As LatestRate
+FROM    meter_reading T1
+GROUP BY smart_meter_oid, cast(T1.reading_date_time  As Date)
