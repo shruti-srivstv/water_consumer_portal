@@ -30,8 +30,7 @@
 			</fieldset>
 			<label for="name" style="color: red">${message}</label>
 			<button type="submit">Sign In</button>
-			<label for="password">First time here? <a
-				href="<c:url value="/registration"/>">Activate your ID</a></label>
+			<label for="password">
 		</form>
 	</div>
 </body>

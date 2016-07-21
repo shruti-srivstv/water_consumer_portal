@@ -14,6 +14,7 @@ import it.polimi.awt.waterconsumer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,13 +35,14 @@ public class UserController {
 	// return "registration";
 	// }
 
-	// @RequestMapping(value="/register", method=RequestMethod.POST)
-	// public String showRegistrationResult(Model model, Integer householdId){
-	// User user = userService.findUserbyHouseholdId(householdId);
-	//
-	// System.out.print("++++++++++++++++++++++" + user.getNeutralUser());
-	// return "user/registrationHome";
-	// }
+	 @RequestMapping(value="/register", method=RequestMethod.GET)
+	 public String showRegistrationResult(HttpSession session, Model model){
+		Integer userid = (Integer) session.getAttribute("userid");
+		if (userid !=null) 
+			return "user/registrationHome";
+		else
+			return "user/login";
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String getLoginPage(Model model, HttpSession session) {
@@ -77,6 +79,7 @@ public class UserController {
 		Integer userid = (Integer) session.getAttribute("userid");
 
 		if (userid != null) {
+			try{
 			User user = userService.findUserById(userid);
 			model.addAttribute("user", user);
 
@@ -88,6 +91,11 @@ public class UserController {
 			model.addAttribute("maxDate", maxDate);
 			model.addAttribute("minDate", minDate);
 			return "user/home";
+			}
+			catch(Exception dataException){
+				System.out.println("Failed to fetch data for user " + userid);
+				return "redirect:/register";
+			}
 		} else {
 			return "redirect:/login";
 		}
@@ -105,6 +113,7 @@ public class UserController {
 			return "redirect:/login";
 		}
 	}
+	
 
 	public static Date removeTime(Date date) {
 		Calendar cal = Calendar.getInstance();
@@ -206,22 +215,6 @@ public class UserController {
 
 		return dailyAverage;
 	}
-
-	/*
-	 * @RequestMapping(value="/locality/average", method=RequestMethod.GET)
-	 * public @ResponseBody Float getLocalityAverage(HttpSession session,
-	 * @RequestParam(name="startDate", required = true) String startDate,
-	 * @RequestParam(name="endDate", required = true) String endDate) throws
-	 * Exception{ System.out.print("getting locality average for" + startDate +
-	 * " to " + endDate); SimpleDateFormat sdf = new
-	 * SimpleDateFormat("yyyy-MM-dd"); Date startDateValue =
-	 * sdf.parse(startDate);; Date endDateValue = sdf.parse(endDate); Integer
-	 * userid = (Integer) session.getAttribute("userid"); User user
-	 * =userService.findUserById(userid); Float dailyAverage; //dailyAverage =
-	 * userService.getLocalityAverage(user, startDateValue, endDateValue);
-	 * 
-	 * return dailyAverage; }
-	 */
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String getAllUsers(Model model) {

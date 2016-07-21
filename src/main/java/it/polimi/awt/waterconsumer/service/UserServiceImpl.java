@@ -3,8 +3,11 @@ package it.polimi.awt.waterconsumer.service;
 import it.polimi.awt.waterconsumer.domain.*;
 import it.polimi.awt.waterconsumer.repository.UserRepository;
 
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +39,13 @@ public class UserServiceImpl implements UserService {
 
 	public Integer findUserbyUsername(String username, String password) {
 		User user = userRepository.findUserbyUsername(username, password);
-
-		Integer userId = user.getOid();
-
-		return userId;
+		
+		if (user!=null){
+			Integer userId = user.getOid();
+			return userId;
+		}
+		
+		return null;
 	}
 
 	public Date getMaxDate(Integer smartMeterOid) {
@@ -102,12 +108,11 @@ public class UserServiceImpl implements UserService {
 		return days;
 	}
 
-	public List<User> getNeighbourhood(String zipcode) {
+	public List<Integer> getNeighbourhood(String zipcode) {
 		List<User> alluser = userRepository.findAll();
 
-		List<User> newList = new ArrayList<User>();
+		List<Integer> newList = new ArrayList<Integer>();
 		
-		int i = 0;
 		for (User us : alluser) {
 			NeutralUser neutralUser = us.getNeutralUser();			
 			try {
@@ -116,16 +121,11 @@ public class UserServiceImpl implements UserService {
 				Building building = household.getBuilding();
 				District district = building.getDistrict();
 				
-				Integer householdId = household.getOid();
 				Integer smartmeterId = smartmeter.getOid();
-				Integer buildingId = building.getOid();
-				Integer districtId = district.getOid();
 				
 				if(zipcode.equals(district.getZipcode())){
-//					System.out.println(i+") Zipcode = " +district.getZipcode());
-//					System.out.println(i+") smartMeter id  = "+smartmeter.getOid());
-					newList.add(us);
-					i++;
+					if (!newList.contains(smartmeterId))
+						{newList.add(smartmeterId);}
 				}
 			} catch (Exception e) {
 				
@@ -136,34 +136,28 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public Float getDailyLocality(String zipcode){
-		List<User> allNeighbour= getNeighbourhood(zipcode);
+		List<Integer> allNeighbour= getNeighbourhood(zipcode);
 		
 		System.out.println("Local Size = "+allNeighbour.size());
 		Float totalNCon = (float) 0;
 		int i = 0;
-		for(User u : allNeighbour){
+		for(Integer u : allNeighbour){
 			try {
 				i++;
-				NeutralUser neutralUser = u.getNeutralUser();
-				Household household = neutralUser.getHousehold();
-				SmartMeter smartMeter = household.getSmartMeter();
-				
-				System.out.println(i+") smartMeter id  = "+smartMeter.getOid());
-				
-				Object[] consumption = userRepository.getMeterReadingConBySMId(smartMeter.getOid());
+				System.out.println(i+") smartMeter id  = "+u);
+				java.util.Date date= new java.util.Date();
+				System.out.println("start query = " + new Timestamp(date.getTime()));
+				Object[] consumption = userRepository.getMeterReadingConBySMId(u);
+				date= new java.util.Date();
+				System.out.println("end query = " + new Timestamp(date.getTime()));
 				Float totalCon = (Float) consumption[2];
-				
 				Date startDate = (Date) consumption[0];
 				Date endDate = (Date) consumption[1];
-				
 				Integer dayDiff = daysBetween(startDate, endDate);
-				
 				Float dailyAve = totalCon / dayDiff;
-				
-				System.out.println(i+") smartMeter id  = "+smartMeter.getOid());
 				System.out.println(i+") dailyAve  = "+dailyAve);
 				
-				totalNCon = totalNCon + dailyAve;
+				totalNCon += dailyAve;
 			} catch (Exception e) {
 				
 			}
@@ -172,7 +166,6 @@ public class UserServiceImpl implements UserService {
 		Float localAve = totalNCon / allNeighbour.size();
 		System.out.println("&&&&&&&&&&&& - localAve = "+localAve);
 		
-		Float localityAverage = (float) 5.1;
 		return localAve;
 	}
 
@@ -185,9 +178,7 @@ public class UserServiceImpl implements UserService {
 			NeutralUser neutralUser = us.getNeutralUser();			
 			try {
 				Household household = neutralUser.getHousehold();
-				SmartMeter smartmeter = household.getSmartMeter();
 				Building building = household.getBuilding();
-				District district = building.getDistrict();
 				
 				if(!building.getAddress().isEmpty()){					
 					newList.add(us);
@@ -200,16 +191,31 @@ public class UserServiceImpl implements UserService {
 		return newList;
 	}
 	
+	public static String safeToString(Object obj) {
+		  return obj == null ? "" : obj.toString();
+	}
+	
+	public Float roundDecimal(Float data){
+		DecimalFormat df = new DecimalFormat("#.###");
+		String s = df.format(data);
+		
+		Float result = Float.valueOf(s);
+		
+		return result;
+	}
+
 
 	public List<Object> getMapData(){
 		List<User> user = getUserMapView();
 		
 		List<Object> newList = new ArrayList<Object>();		
-		List<Object> row = new ArrayList<Object>();
+		//List<Object> row = new ArrayList<Object>();
 		
 		int i = 0;
 		for(User us : user){
 			i++;
+			HashMap<String, Object> map = new HashMap<String,Object>();
+			
 			NeutralUser neutralUser = us.getNeutralUser();
 			Household household = neutralUser.getHousehold();
 			SmartMeter smartMeter = household.getSmartMeter();
@@ -218,35 +224,40 @@ public class UserServiceImpl implements UserService {
 			Integer r = userRepository.findCommonSM(building.getOid());
 			System.out.println(i+") User id = "+us.getOid());
 			
-			String commonS;
+			String typeUser;
 			
 			if(r > 1)
-				commonS = "Common Smartmeter";
+				typeUser = "Common Smartmeter";
 			else
-				commonS = "Individual Smartmeter";
+				typeUser = "Individual Smartmeter";
+			
+			String address = building.getAddress();
 			
 			Integer smartMeterOid = smartMeter.getOid();
 			
 			Object[] consumption = userRepository.getMeterReadingConBySMId(smartMeterOid);
-			Float totalCon = (Float) consumption[2];
+			Float totalCon = roundDecimal((Float) consumption[2]);
 			
 			Date startDate = (Date) consumption[0];
 			Date endDate = (Date) consumption[1];
 			
 			Integer dayDiff = daysBetween(startDate, endDate);
 			
-			Float dailyAve = totalCon / dayDiff;
-			Float weeklyAve = dailyAve / 7;
-			Float monthlyAve = dailyAve / 30;
+			Float dailyAve = roundDecimal(totalCon / dayDiff);
+			Float weeklyAve = roundDecimal(dailyAve / 7);
+			Float monthlyAve = roundDecimal(dailyAve / 30);
 			
-			row.add(commonS);
-			row.add(totalCon);
-			row.add(dailyAve);
-			row.add(weeklyAve);
-			row.add(monthlyAve);
+			map.put("address", address);			
+			map.put("typeUser", typeUser);
+			map.put("totalCon", totalCon);
+			map.put("dailyAve", dailyAve);
+			map.put("weeklyAve", weeklyAve);
+			map.put("monthlyAve", monthlyAve);
+			
+			newList.add(map);
 		}		
-		newList.add(row);
 		
 		return newList;
 	}
+
 }

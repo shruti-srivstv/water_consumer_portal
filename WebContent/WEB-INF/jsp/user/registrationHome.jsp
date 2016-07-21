@@ -9,8 +9,9 @@
 	<title>Water Consumer Portal</title>
 </head>
 <body>
-	Welcome to Water Consumer Portal	
 	<br>
-	
+	You do not have an associated smart meter. Please enter data manually.	
+	<br>
+	<a  href="<c:url value="/logout"/>">Logout</a>
 </body>
 </html>

@@ -18,6 +18,10 @@
 			<name>Spring Snapshot Repository</name>
 			<url>https://repo.spring.io/snapshot</url>
 		</repository>
+		<repository>
+		    <id>java.net</id>
+		    <url>http://download.java.net/maven/2</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -97,6 +101,12 @@
 		    <groupId>org.json</groupId>
 		    <artifactId>json</artifactId>
 		    <version>20090211</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.google.code.findbugs</groupId>
+		    <artifactId>jsr305</artifactId>
+		    <version>3.0.0</version>
 		</dependency>
 		
 	</dependencies>

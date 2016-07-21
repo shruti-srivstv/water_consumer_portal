@@ -9,9 +9,6 @@ function drawChart () {
         	chart: {
         		renderTo : 'container'
             },
-            
-			/*TODO add plotline dynamically  */
-            /*TODO Check if hour data is present before reloading chart*/
             rangeSelector : {
             	buttons: [{
             		type: 'week',
@@ -45,13 +42,15 @@ function drawChart () {
 	            type: 'datetime',
 	            labels: {
 	            	 formatter: function() {
-	                 return Highcharts.dateFormat('%a %d %b', this.value);
+	            		 if (gran == "hour"){
+	            			 return Highcharts.dateFormat('%I:%M %p', this.value);
+	            		 }
+	            		 else{
+	            			 return Highcharts.dateFormat('%d %b %y', this.value);
+	            		 }
 	            	 }
 	            }
 	        },
-            title : {
-                text : 'Water Consumption Portal'
-            },
             plotOptions: {
                 series: {
 	                cursor: 'pointer',
@@ -67,6 +66,9 @@ function drawChart () {
                     }
                 }
             },
+            title:{
+                text:''
+            },
             series : [{
             	type: 'column',
                 data : [],
@@ -75,15 +77,18 @@ function drawChart () {
 	}
     
     $.getJSON(url, function(data){
-    	options.series[0].name = "Water Consumption Portal";
-       	options.series[0].data = data;
-       	if (gran == "hour"){chart = new Highcharts.Chart(options)}
-       	else {chart = new Highcharts.StockChart(options);}
+    	if (data=="" || data==null) {alert("Data is not available.")}
+       	else{
+	    	options.series[0].name = "Water Consumption Portal";
+	       	options.series[0].data = data;
+	       	if (gran == "hour"){chart = new Highcharts.Chart(options)}
+	       	else {chart = new Highcharts.StockChart(options);}
+	    }
+	}).fail(function(jqXHR, textStatus, errorThrown) { alert('Data is not available'); 
 	});
 }
 
 function getChart(granularity) {
-	alert("getting chart");
 	url = "http://localhost:8080/water_consumer_portal/consumption";
 	url += "?gran=" + granularity;
 	gran = granularity;
@@ -114,7 +119,6 @@ function drawUserAvg(){
 	var maxDate = $('input.highcharts-range-selector:eq(1)').val();
 	var avgUrl = "http://localhost:8080/water_consumer_portal/user/average?startDate=" + minDate+"&endDate=" + maxDate;
 	var avgUserConsumption = 0;
-	alert(avgUrl);
 	$.get(avgUrl, function(avgData){
 		chart.yAxis[0].addPlotLine({
 			value: avgData,
@@ -139,7 +143,6 @@ function drawLocalityAvg(){
 	var maxDate = $('input.highcharts-range-selector:eq(1)').val();
 	var avgUrl = "http://localhost:8080/water_consumer_portal/locality/average?startDate=" + minDate+"&endDate=" + maxDate;
 	var avgUserConsumption = 0;
-	alert(avgUrl);
 	$.get(avgUrl, function(avgData){
 		chart.yAxis[0].addPlotLine({
 			value: avgData,

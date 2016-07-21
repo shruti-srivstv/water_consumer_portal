@@ -1,0 +1,1 @@
+SELECT mrs FROM SmartMeter sm JOIN sm.meterReadings mrs WHERE sm.oid = :smartID AND mrs.readingDateTime BETWEEN :startDate and :endDate GROUP BY DATE(readingDateTime)"

@@ -492,3 +492,111 @@ events: {
                 drilldown: {
                 series: []
             }
+
+
+
+
+            for (i = 0; i < data.length; i = i + 5) {
+			var contentString = ""
+			var infowindow = new google.maps.InfoWindow({
+				content : contentString
+			});
+			var marker = new google.maps.Marker({
+				position : latlng,
+				map : map,
+				title : "User"
+					
+			});
+			marker.addListener('click', function() {
+				infowindow.open(map, marker);
+			});
+		}
+
+
+
+
+
+
+		 function loadMap() {
+    var latlng = new google.maps.LatLng(latitude, longitude);
+    var myOptions = {
+      zoom: 15,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_container"),myOptions);
+    
+    var contentString = 
+    	'<div id="content">'+	    
+	    '<h3>'+commonU+'</h3>'+
+	    '<table>'+
+	    '<tr>'+
+	    '<td>Total Consumption'+
+	    '</td>'+
+	    '<td>'+totalCon+
+	    '</td>'+
+	    '</tr>'+
+	    '<tr>'+
+	    '<td>Average Daily Consumption'+ 
+	    '</td>'+
+	    '<td align="right">'+dailyAve+
+	    '</td>'+
+	    '</tr>'+
+	    '<tr>'+
+	    '<td>Average Weekly Consumption'+ 
+	    '</td>'+
+	    '<td align="right">'+weeklyAve+
+	    '</td>'+
+	    '</tr>'+
+	    '<tr>'+
+	    '<td>Average Monthly Consumption'+ 
+	    '</td>'+
+	    '<td align="right">'+monthlyAve+
+	    '</td>'+
+	    '</tr>'+
+	    '</table>'+
+	    '</div>';
+
+	var infowindow = new google.maps.InfoWindow({
+  		content: contentString
+	});
+	
+    var marker = new google.maps.Marker({
+      position: latlng, 
+      map: map, 
+      title:commonU
+    }); 
+    
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      });  
+  }
+</script>
+</head>
+
+
+//document.write(totalCon);
+
+	/* var latitude;
+	var longitude;
+	var getLocation =  function(address) {
+	  var geocoder = new google.maps.Geocoder();
+	  geocoder.geocode( { 'address': address}, function(results, status) {
+
+	  if (status == google.maps.GeocoderStatus.OK) {
+	      latitude = results[0].geometry.location.lat();
+	      longitude = results[0].geometry.location.lng();
+	      console.log(latitude, longitude);
+	      } 
+	  }); 
+	} */
+
+	//Call the function with address as parameter
+	/* getLocation(address); */
+
+
+	//				alert("got lat lng");
+//				alert(latitude + " " + longitude);
+//				}
+
+
