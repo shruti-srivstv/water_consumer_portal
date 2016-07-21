@@ -66,7 +66,20 @@ public class UserController {
 
 		return "redirect:/portal";
 	}
-
+	
+	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	 public String showProfil(HttpSession session, Model model) {
+	 		Integer userid = (Integer) session.getAttribute("userid");
+	 		if (userid != null) {
+	 			User user = userService.findUserById(userid);
+	 			model.addAttribute("user", user);
+	 			
+	 			return "user/profile";
+	 		} else {
+	 			return "redirect:/login";
+	 		}
+	 }
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String showHomepage(HttpSession session, Model model) {
 		session.setAttribute("userid", null);

@@ -42,7 +42,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<c:url value="/map"/>">Map</a></li>
-            <li><a href="http://getbootstrap.com/examples/dashboard/">User Profile</a></li>
+            <li><a href="<c:url value="/profile"/>">User Profile</a></li>
             <li><a  href="<c:url value="/logout"/>">Logout</a></li>
           </ul>
         </div>
@@ -53,11 +53,11 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="http://getbootstrap.com/examples/dashboard/#">Overview <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href = "<c:url value="/portal"/>"> Overview <span class="sr-only">(current)</span></a></li>
           </ul>
           <ul class="nav nav-sidebar">
             <li><a href="<c:url value="/map"/>">Map</a></li>
-            <li><a href="http://getbootstrap.com/examples/dashboard/">User Profile</a></li>
+            <li><a href="<c:url value="/profile"/>">User Profile</a></li>
             <li><a  href="<c:url value="/logout"/>">Logout</a></li>
           </ul>
         </div>
@@ -68,13 +68,14 @@
               
         <label class="checkbox-inline"> <input type="checkbox" id="useravg" name="Daily Average" onclick="dailyAvg();"/> Show your daily average</label>
         <label class="checkbox-inline"><input type="checkbox" id="localityavg" name="Local Average" onclick="localityAvg();"/> Show neighbourhood daily average</label>  
-		<span style="display:inline-block; width: 150px;"></span>
-		Display consumption by: 
+		<span style="display:inline-block; width: 300px;"></span>
+		Display consumption for: 
 		<select  id ="gran" name="changeGranularitys" onmousedown="this.value='';" onchange="getChart(this.value);">
             <option value='day'>Day</option>
             <option value='week'>Week</option>
             <option value='month'>Month</option>
         </select>
+        <br>
         <br>
 		
 		<input type="button" class="btn btn-primary" value="Back" onclick="getDefaultChart()" id="back_btn" style="float: right;" />
