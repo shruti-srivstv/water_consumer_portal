@@ -140,43 +140,20 @@ public class JpaUserRepository implements UserRepository {
 	}
 	
 	public Object[] getMeterReadingConBySMId(Integer smartMeterOid){
-		TypedQuery<Object[]> query = em.createQuery("SELECT MIN(mrs.readingDateTime), MAX(mrs.readingDateTime), MAX(mrs.totalConsumptionAdjusted)-MIN(mrs.totalConsumptionAdjusted) FROM MeterReading mrs WHERE mrs.smartMeterOid = :smartID",Object[].class); 
+//		TypedQuery<Object[]> query = em.createQuery("SELECT MIN(mrs.readingDateTime), MAX(mrs.readingDateTime), MAX(mrs.totalConsumptionAdjusted)-MIN(mrs.totalConsumptionAdjusted) FROM MeterReading mrs WHERE mrs.smartMeterOid = :smartID",Object[].class); 
+		TypedQuery<Object[]> query = em.createQuery("SELECT m.readingDateTime, m.totalConsumptionAdjusted FROM MeterReading m WHERE m.smartMeterOid = :smartID ORDER BY oid ASC", Object[].class);
 		query.setParameter("smartID", smartMeterOid);
+		query.setMaxResults(1);
+		Object[] firstMeterReading = query.getSingleResult();
 		
-		Object[] result = query.getSingleResult();
+		query = em.createQuery("SELECT m.readingDateTime, m.totalConsumptionAdjusted FROM MeterReading m WHERE m.smartMeterOid = :smartID ORDER BY oid DESC", Object[].class);
+		query.setParameter("smartID", smartMeterOid);
+		query.setMaxResults(1);
+		Object[] lastMeterReading = query.getSingleResult();
+		
+		Object[] result = new Object[]{firstMeterReading, lastMeterReading};
 		
 		return result;
 	}
-	
-//	public List<User> getUserFromZipcode(Integer zipcode){
-//		TypedQuery<Integer> buildingQuery = em.createQuery("SELECT oid FROM building WHERE districtOid = :districtID", Integer.class);
-//	}
-	
-//	public Float getLocalityAverage(User user, Date startDate, Date endDate){
-//		Integer districtOid = user.getNeutralUser().getHousehold().getBuilding().getDistrict().getOid();
-//		TypedQuery<Integer> buildingQuery = em.createQuery("SELECT oid FROM building WHERE districtOid = :districtID", Integer.class);
-//		buildingQuery.setParameter("districtID", districtOid);
-//		List<Integer> buildingIds = buildingQuery.getResultList();
-//		TypedQuery<Integer> smQuery = em.createQuery("SELECT DISTINCT (smartMeterOid) FROM household WHERE buildingOid IN (:buildingIdList)", Integer.class);
-//		smQuery.setParameter("buildingIdList", buildingIds);
-//		List<Integer> smIds = smQuery.getResultList();
-//		Float startConsumption, endConsumption;
-//		TypedQuery<Float> query;
-//		query = em.createQuery("SELECT MIN(mrs.totalConsumptionAdjusted) FROM SmartMeter sm JOIN sm.meterReadings mrs WHERE sm.oid = :smartID AND DATE(mrs.readingDateTime) = :dateValue",
-//				Float.class);
-//		//query.setParameter("smartID", smOid);
-//		query.setParameter("dateValue", startDate);
-//		startConsumption = query.getSingleResult();
-//		query = em.createQuery("SELECT MAX(mrs.totalConsumptionAdjusted) FROM SmartMeter sm JOIN sm.meterReadings mrs WHERE sm.oid = :smartID AND DATE(mrs.readingDateTime) = :dateValue",
-//				Float.class);
-//		//query.setParameter("smartID", smOid);
-//		query.setParameter("dateValue", endDate);
-//		endConsumption  = query.getSingleResult();
-//		
-//		Integer days = daysBetween(startDate, endDate);
-//		Float dailyAverage;
-//		dailyAverage =  (endConsumption -startConsumption)/days;
-//		return dailyAverage;
-//	}
 
 }

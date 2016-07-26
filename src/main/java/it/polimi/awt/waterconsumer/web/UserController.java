@@ -14,7 +14,6 @@ import it.polimi.awt.waterconsumer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,10 +29,6 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	// @RequestMapping(value="/registration", method=RequestMethod.GET)
-	// public String getRegistrationPage(Model model){
-	// return "registration";
-	// }
 
 	 @RequestMapping(value="/register", method=RequestMethod.GET)
 	 public String showRegistrationResult(HttpSession session, Model model){
@@ -182,11 +177,6 @@ public class UserController {
 	@RequestMapping(value = "/user/average", method = RequestMethod.GET)
 	public @ResponseBody
 	Float getDailyAverage(HttpSession session, @RequestParam(name = "startDate", required = true) String startDate, @RequestParam(name = "endDate", required = true) String endDate) throws Exception {
-		//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		//Date startDateValue = sdf.parse(startDate);
-		
-		//Date endDateValue = sdf.parse(endDate);
-
 		Integer userid = (Integer) session.getAttribute("userid");
 
 		User user = userService.findUserById(userid);
@@ -197,8 +187,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/mapData", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Object> getMapData() {
+	public @ResponseBody List<Object> getMapData() {
 		List<Object> newList = userService.getMapData();
 
 		return newList;
@@ -208,10 +197,6 @@ public class UserController {
 	public @ResponseBody
 	Float getLocalityAverage(HttpSession session, @RequestParam(name = "startDate", required = true) String startDate, @RequestParam(name = "endDate", required = true) String endDate) throws Exception {
 		System.out.print("getting locality average for" + startDate + " to " + endDate);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date startDateValue = sdf.parse(startDate);
-		
-		Date endDateValue = sdf.parse(endDate);
 		Integer userid = (Integer) session.getAttribute("userid");
 
 		User user = userService.findUserById(userid);
@@ -220,12 +205,8 @@ public class UserController {
 		District district = building.getDistrict();
 
 		String zipcode = district.getZipcode();
-		System.out.println("~~~~~~~~~~~~Zipcode = " + zipcode);
-
 		Float dailyAverage = userService.getDailyLocality(zipcode);
-		// dailyAverage = userService.getLocalityAverage(user, startDateValue,
-		// endDateValue);
-
+		
 		return dailyAverage;
 	}
 
@@ -239,8 +220,6 @@ public class UserController {
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
 	public String getUserDetails(@PathVariable Integer id, Model model) {
-		/*
-		 * User user = userService.findUserById(id); model.addAttribute(user);
-		 */return "user/homepage";
+		 return "user/homepage";
 	}
 }

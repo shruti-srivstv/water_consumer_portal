@@ -146,16 +146,22 @@ public class UserServiceImpl implements UserService {
 				i++;
 				System.out.println(i+") smartMeter id  = "+u);
 				java.util.Date date= new java.util.Date();
-				System.out.println("start query = " + new Timestamp(date.getTime()));
+				Timestamp startTime = new Timestamp(date.getTime());
 				Object[] consumption = userRepository.getMeterReadingConBySMId(u);
 				date= new java.util.Date();
-				System.out.println("end query = " + new Timestamp(date.getTime()));
-				Float totalCon = (Float) consumption[2];
-				Date startDate = (Date) consumption[0];
-				Date endDate = (Date) consumption[1];
+				Timestamp endTime = new Timestamp(date.getTime());
+				long diff = endTime.getTime() - startTime.getTime();
+				System.out.println("time = " + diff);
+								
+				Object[] firstMeterReading = (Object[])consumption[0];
+				Object[] lastMeterReading = (Object[])consumption[1];
+				
+				Float totalCon = (Float) lastMeterReading[1] - (Float) firstMeterReading[1];
+				
+				Date startDate = (Date) firstMeterReading[0];
+				Date endDate = (Date) lastMeterReading[0];
 				Integer dayDiff = daysBetween(startDate, endDate);
 				Float dailyAve = totalCon / dayDiff;
-				System.out.println(i+") dailyAve  = "+dailyAve);
 				
 				totalNCon += dailyAve;
 			} catch (Exception e) {
@@ -164,7 +170,6 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		Float localAve = totalNCon / allNeighbour.size();
-		System.out.println("&&&&&&&&&&&& - localAve = "+localAve);
 		
 		return localAve;
 	}
@@ -234,12 +239,20 @@ public class UserServiceImpl implements UserService {
 			String address = building.getAddress();
 			
 			Integer smartMeterOid = smartMeter.getOid();
-			
+			java.util.Date date= new java.util.Date();
+			Timestamp startTime = new Timestamp(date.getTime());
 			Object[] consumption = userRepository.getMeterReadingConBySMId(smartMeterOid);
-			Float totalCon = roundDecimal((Float) consumption[2]);
+			date= new java.util.Date();
+			Timestamp endTime = new Timestamp(date.getTime());
+			long diff = endTime.getTime() - startTime.getTime();
+			System.out.println("time = " + diff);
+			Object[] firstMeterReading = (Object[])consumption[0];
+			Object[] lastMeterReading = (Object[])consumption[1];
 			
-			Date startDate = (Date) consumption[0];
-			Date endDate = (Date) consumption[1];
+			Float totalCon = (Float) lastMeterReading[1] - (Float) firstMeterReading[1];
+			
+			Date startDate = (Date) firstMeterReading[0];
+			Date endDate = (Date) lastMeterReading[0];
 			
 			Integer dayDiff = daysBetween(startDate, endDate);
 			
